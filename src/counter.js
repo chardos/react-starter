@@ -1,4 +1,5 @@
 import React from 'react';
+import './counter.scss';
 
 /**
  * A counter button: tap the button to increase the count.
