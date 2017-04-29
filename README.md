@@ -1,4 +1,4 @@
-Day care scheduler
+React starter
 ---
 
 Time to build some awesome stuff.
