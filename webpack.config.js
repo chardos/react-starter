@@ -9,16 +9,10 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || "8888";
 
-loaders.push({
-  test: /\.scss$/,
-  loaders: ['style-loader', 'css-loader?importLoaders=1', 'sass-loader'],
-  exclude: ['node_modules']
-});
-
 module.exports = {
   entry: [
     'react-hot-loader/patch',
-    './src/index.jsx', // your app's entry point
+    './src/index.js', // your app's entry point
   ],
   devtool: process.env.WEBPACK_DEVTOOL || 'eval-source-map',
   output: {
@@ -30,7 +24,26 @@ module.exports = {
     extensions: ['.js', '.jsx']
   },
   module: {
-    loaders
+      rules: [
+        {
+          test: /\.js$/,
+          exclude: /node_modules/,
+          use: [
+            'babel-loader',
+          ],
+        },
+        {
+          test: /\.scss$/,
+          exclude: /node_modules/,
+          use: [{
+              loader: "style-loader" // creates style nodes from JS strings
+          }, {
+              loader: "css-loader" // translates CSS into CommonJS
+          }, {
+              loader: "sass-loader" // compiles Sass to CSS
+          }]
+        },
+      ],
   },
   devServer: {
     contentBase: "./public",
